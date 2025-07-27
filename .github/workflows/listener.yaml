@@ -1,0 +1,15 @@
+name: Issue Listener 
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  call-dispatcher:
+    uses: ./.github/workflows/dispatcher.yaml
+    secrets: inherit
+    with:
+      issue_comment_body: ${{ github.event.comment.body }}
+      issue_comment_author: ${{ github.event.comment.user.login }}
+      issue_comment_url: ${{ github.event.comment.html_url }}

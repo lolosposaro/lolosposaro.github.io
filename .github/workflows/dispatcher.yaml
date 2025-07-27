@@ -1,0 +1,26 @@
+name: Dispatcher Workflow
+
+on:
+  workflow_call:
+    inputs:
+      issue_comment_body:
+        required: true
+        type: string
+      issue_comment_author:
+        required: true
+        type: string
+      issue_comment_url:
+        required: true
+        type: string
+
+jobs:
+  handle_comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print issue comment body
+        run: |
+          echo "Received issue comment:"
+          echo "${{ inputs.issue_comment_body }}"
+          echo "Comment author: ${{ inputs.issue_comment_author }}"
+          echo "Comment URL: ${{ inputs.issue_comment_url }}"
+      
