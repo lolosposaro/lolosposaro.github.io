@@ -17,10 +17,28 @@ jobs:
   handle_comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Print issue comment body
+      - name: Print inputs
         run: |
           echo "Received issue comment:"
           echo "${{ inputs.issue_comment_body }}"
           echo "Comment author: ${{ inputs.issue_comment_author }}"
           echo "Comment URL: ${{ inputs.issue_comment_url }}"
+      - name: Check if inputs exist
+        run: |
+          if [ -z "${{ inputs.issue_comment_body }}" ]; then
+            echo "No comment body provided."
+            exit 1
+          fi
+          if [ -z "${{ inputs.issue_comment_author }}" ]; then
+            echo "No comment author provided."
+            exit 1
+          fi
+          if [ -z "${{ inputs.issue_comment_url }}" ]; then
+            echo "No comment URL provided."
+            exit 1
+          fi
+          echo "All inputs are valid."
+      - name: Dispatch event
+        run: |
+          echo "Hello world! This is a test dispatch event."
       
