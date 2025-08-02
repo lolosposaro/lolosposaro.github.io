@@ -1,44 +1,31 @@
-name: Dispatcher Workflow
-
 on:
   workflow_call:
-    inputs:
-      issue_comment_body:
-        required: true
-        type: string
-      issue_comment_author:
-        required: true
-        type: string
-      issue_comment_url:
-        required: true
-        type: string
 
+env: 
+  DISPATCH_REPO_NAME: "lolosposaro.github.io"
+  
 jobs:
-  handle_comment:
+  commands:
     runs-on: ubuntu-latest
     steps:
-      - name: Print inputs
-        run: |
-          echo "Received issue comment:"
-          echo "${{ inputs.issue_comment_body }}"
-          echo "Comment author: ${{ inputs.issue_comment_author }}"
-          echo "Comment URL: ${{ inputs.issue_comment_url }}"
-      - name: Check if inputs exist
-        run: |
-          if [ -z "${{ inputs.issue_comment_body }}" ]; then
-            echo "No comment body provided."
-            exit 1
-          fi
-          if [ -z "${{ inputs.issue_comment_author }}" ]; then
-            echo "No comment author provided."
-            exit 1
-          fi
-          if [ -z "${{ inputs.issue_comment_url }}" ]; then
-            echo "No comment URL provided."
-            exit 1
-          fi
-          echo "All inputs are valid."
-      - name: Dispatch event
-        run: |
-          echo "Hello world! This is a test dispatch event."
-      
+
+      - name: Commands Dispatcher 
+        id: scd
+        uses: peter-evans/slash-command-dispatch@v4
+        with:
+          token: ${{ secrets.MY_PAT }}
+          config: >
+            [
+              {
+                "command": "env-var",
+                "permission": "none",
+                "issue_type": "issue",
+                "repository": "lolosposaro/${{ env.DISPATCH_REPO_NAME}}"
+              },
+              {
+                "command": "help",
+                "permission": "none",
+                "issue_type": "issue",
+                "repository": "lolosposaro/${{ env.DISPATCH_REPO_NAME}}"
+              }
+            ]

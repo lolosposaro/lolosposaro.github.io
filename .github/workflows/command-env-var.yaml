@@ -5,5 +5,5 @@ on:
 
 jobs:
   env-var-command:
-    uses: lolosposaro/nx-dev-self-service-dispatch-procesor/.github/workflows/on-call-env-var.yml@feat/feat/Snakemake-comandera
+    uses: lolosposaro/nx-dev-self-service-dispatch-procesor/.github/workflows/on-call-env-var.yml@feat/Snakemake-comandera
     secrets: inherit
