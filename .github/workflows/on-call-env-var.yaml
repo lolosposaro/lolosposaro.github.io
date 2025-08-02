@@ -1,0 +1,404 @@
+name: On call Environment Variable Command (CRUD)
+description: This workflow triggers the environment variable command in a given environment repo.
+
+on:
+  workflow_call:
+
+permissions:
+  actions: write
+  id-token: write
+  contents: write
+  pull-requests: write
+
+env:
+  ENVIRONMENT: ${{ github.event.client_payload.slash_command.args.named['--env'] }}
+  KEY: ${{ github.event.client_payload.slash_command.args.named['--key'] }}
+  VALUE: ${{ github.event.client_payload.slash_command.args.named['--value'] }}
+  ACTION: ${{ github.event.client_payload.slash_command.args.named['--create'] == '' && 'create' || github.event.client_payload.slash_command.args.named['--update'] == '' && 'update' || github.event.client_payload.slash_command.args.named['--delete'] == '' && 'delete' || github.event.client_payload.slash_command.args.named['--read'] == '' && 'read' || 'help' }}
+#  POSSIBLE_ENVS: [ 'dev1', 'sit1']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.client_payload.slash_command.args.named['--env'] }}
+  cancel-in-progress: false
+
+jobs:
+
+  show_workflow:
+    uses: lolosposaro/nx-dev-self-service-dispatch-procesor/.github/workflows/on-call-show-workflow-as-comment.yml@BB-76270-EnvVar-commands
+    secrets: inherit
+    with:
+      github_command: '/env-var'
+
+  get-artifact:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact: ${{ steps.name.outputs.artifact }}
+    steps:
+      - name: Get artifact name
+        id: name
+        run: |
+          REPO=${{ github.event.client_payload.github.payload.repository.name }}
+          ARTIFACT="${REPO//nx-/}"
+          echo "Artifact name: $ARTIFACT"
+          echo ARTIFACT=$ARTIFACT >> $GITHUB_OUTPUT
+
+
+  validate-args:
+    runs-on: ubuntu-latest
+    needs: get-artifact
+    steps:
+      - name: Validate arguments exist
+        run: |
+          touch validate_args_output.txt
+            echo "Validating arguments..." | tee -a validate_args_output.txt
+            if [[ -z "${{ env.ACTION }}" ]]; then
+            echo "Action is required." | tee -a validate_args_output.txt
+            exit 1
+            fi
+            echo "Action: ${{ env.ACTION }}" | tee -a validate_args_output.txt
+            if [[ -z "${{ github.event.client_payload.slash_command.args.named['--env'] }}" ]]; then
+            echo "Environment is required." | tee -a validate_args_output.txt
+            exit 1
+            fi
+            echo "Environment: ${{ github.event.client_payload.slash_command.args.named['--env'] }}" | tee -a validate_args_output.txt
+            if [[ -z ${{ needs.get-artifact.outputs.artifact }} ]]; then
+            echo "Artifact name is empty." | tee -a validate_args_output.txt
+            exit 1
+            fi
+            echo "Artifact: ${{ needs.get-artifact.outputs.artifact }}" | tee -a validate_args_output.txt
+            # In case of create or update action both key and value are required
+            if [[ ${{ env.ACTION}} == 'create' || ${{ env.ACTION}} == 'update' || ${{ env.ACTION}} == 'CREATE' || ${{ env.ACTION}} == 'UPDATE' ]]; then
+            if [[ -z "${{ github.event.client_payload.slash_command.args.named['--key'] }}" ]]; then
+              echo "Argument Key not found, key is required for ${{ env.ACTION }}s." | tee -a validate_args_output.txt
+              exit 1
+            fi
+            echo "Key: ${{ github.event.client_payload.slash_command.args.named['--key'] }}" | tee -a validate_args_output.txt
+            if [[ -z "${{ github.event.client_payload.slash_command.args.named['--value'] }}" ]]; then
+              echo "Argument Value not found, value is required for ${{ env.ACTION }}s." | tee -a validate_args_output.txt
+              exit 1
+            fi
+            fi
+            echo "Value: ${{ github.event.client_payload.slash_command.args.named['--value'] }}" | tee -a validate_args_output.txt
+            # In case of delete action only key is required
+            if [[ ${{ env.ACTION}} == 'delete' || ${{ env.ACTION}} == 'DELETE' ]]; then
+            if [[ -z "${{ github.event.client_payload.slash_command.args.named['--key'] }}" ]]; then
+              echo "Argument Key not found, key is required for ${{ env.ACTION }}s." | tee -a validate_args_output.txt
+              exit 1
+            fi
+            fi
+
+      - name: token for comments
+        if: failure()
+        id: comment-token
+        uses: tibdex/github-app-token@v2
+        with:
+            app_id: ${{ secrets.NX_INFRA_SELF_SERVICE_APPID }}
+            private_key: ${{ secrets.NX_INFRA_SELF_SERVICE_SECRET  }}
+            repositories: >-
+              ["${{ github.event.client_payload.github.payload.repository.name }}"]
+
+      - if: failure()
+        name: Capture failure context
+        id: send-output
+        run: |
+          echo -n "result=" >> $GITHUB_OUTPUT
+          tr '\n' ' ' < validate_args_output.txt >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+
+      - name: Create comment to notify no changes detected or error
+        uses: peter-evans/create-or-update-comment@v4
+        if: failure()
+        with:
+          token: ${{ steps.comment-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reactions: "confused"
+          body: |
+            **Failure detected in job:** `${{ github.job }}`
+            **Summary🥴** Please check the logs details.
+            - **Error:**
+            `${{ steps.send-output.outputs.result }}`
+
+  env-var-crud:
+    name: Environment Variable CRUD
+    continue-on-error: false
+    runs-on: ubuntu-latest
+    needs: [ validate-args, get-artifact ]
+    outputs:
+      token: ${{ steps.generate-token_tf_nx.outputs.token }}
+    steps:
+      - name: token for comments
+        id: comment-token
+        uses: tibdex/github-app-token@v2
+        with:
+            app_id: ${{ secrets.NX_INFRA_SELF_SERVICE_APPID }}
+            private_key: ${{ secrets.NX_INFRA_SELF_SERVICE_SECRET  }}
+            repositories: >-
+              ["${{ github.event.client_payload.github.payload.repository.name }}"]
+      ## Step to generate a token for the Github App
+      - name: Generate a token for Github App
+        id: generate-token_tf_nx
+        uses: tibdex/github-app-token@v2
+        with:
+            app_id: ${{ vars.NX_DEV_PROMOTER_APP_ID }}
+            private_key: ${{ secrets.NX_DEV_PROMOTER  }}
+            repositories: >-
+              ["nx-bolt-environment-${{ env.ENVIRONMENT }}",
+              "nx-terraform-builder",
+              "nx-dev-self-service-dispatch-procesor"]
+            revoke: false # Revoke token after job
+      
+      ## Step to install the nx-terraform-builder
+      - name: Install nx-terraform-builder
+        uses: lolosposaro/nx-terraform-builder/.github/actions/install-nx-terraform-builder@main
+        with:
+          token: ${{ steps.generate-token_tf_nx.outputs.token }}
+          goos: 'linux'
+          goarch: 'amd64'
+          version: 'latest'
+
+      - name: Checkout environment repository
+        uses: actions/checkout@v4
+        with:
+          repository: "lolosposaro/nx-bolt-environment-${{ env.ENVIRONMENT }}"
+          token: ${{ steps.generate-token_tf_nx.outputs.token }}
+
+      - name: Define env repo
+        run: |
+          echo "NX_BOLT_ENV_REPO=${{ github.workspace }}" >> $GITHUB_ENV
+
+      ## HELP ##
+      - name: Help for environment variable ${{ env.KEY }}
+        if: ${{ env.ACTION == 'help' }}
+        id: env-var-help
+        run: |
+          /usr/local/bin/tf_nx artifact env-var --${{env.ACTION}} >> envvar_output.txt
+
+      ## CREATE ##
+      - name: Create environment variable ${{ env.KEY }}
+        if: ${{ env.ACTION == 'create' }}
+        id: env-var-create
+        run: |
+          /usr/local/bin/tf_nx artifact env-var --${{env.ACTION}} \
+            --artifact ${{ needs.get-artifact.outputs.artifact }} \
+            --key ${{ env.KEY }} --value ${{ env.VALUE }} \
+            --env ${{ env.ENVIRONMENT }} >> envvar_output.txt
+
+      ## UPDATE ##
+      - name: Update environment variable ${{ env.KEY }}
+        if: ${{ env.ACTION == 'update' }}
+        id: env-var-update
+        run: |
+          /usr/local/bin/tf_nx artifact env-var --${{env.ACTION}} \
+          --artifact ${{ needs.get-artifact.outputs.artifact }} \
+          --key ${{ env.KEY }} \
+          --value ${{ env.VALUE }} \
+          --env ${{ env.ENVIRONMENT }} >> envvar_output.txt
+
+      ## DELETE ##
+      - name: Delete environment variable ${{ env.KEY }}
+        if: ${{ env.ACTION == 'delete' }}
+        id: env-var-delete
+        run: |
+          /usr/local/bin/tf_nx artifact env-var --${{env.ACTION}} \
+          --artifact ${{ needs.get-artifact.outputs.artifact }} \
+          --key ${{ env.KEY }} \
+          --env ${{ env.ENVIRONMENT }}  >> envvar_output.txt
+
+      ## READ ##
+      - name: Read environment variable ${{ env.KEY }}
+        if: ${{ env.ACTION == 'read' }}
+        id: env-var-read
+        run: | 
+          /usr/local/bin/tf_nx artifact env-var --${{env.ACTION}} \
+           --artifact ${{ needs.get-artifact.outputs.artifact }} \
+           --env ${{ env.ENVIRONMENT }} >> envvar_output.txt
+
+      - name: Get read output
+        id: get_read_output
+        if: ${{ env.ACTION == 'read' }}
+        run: |
+          echo "result<<EOF" >> $GITHUB_OUTPUT
+          cat envvar_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+        
+      - if: ${{ env.ACTION == 'read' }}
+        name: Show workflow in a comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ steps.comment-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reactions: "hooray"
+          edit-mode: append
+          body: |
+            - **Action**: ${{ env.ACTION }}
+            - **Result:**
+            ```
+            ${{ steps.get_read_output.outputs.result }}
+            ```
+
+      ## Failure Handling Commands ##
+      - if: ${{ steps.env-var-create.conclusion == 'failure' || steps.env-var-update.conclusion == 'failure' || steps.env-var-delete.conclusion == 'failure' }}
+        name: Send output to variable
+        id: send-output
+        run: |
+          echo "result<<EOF" >> $GITHUB_OUTPUT
+          cat envvar_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - if: ${{ steps.env-var-create.conclusion == 'failure' || steps.env-var-update.conclusion == 'failure' || steps.env-var-delete.conclusion == 'failure' }}
+        name: Show error in comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ steps.comment-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reactions: "confused"
+          reactions-edit-mode: replace
+          edit-mode: append
+          body: |
+            **Failure detected in job:** `${{ github.job }}`
+            - **Summary🫠** Failed running ${{ env.ACTION }} error on Self Service Dispatch Processor execution.
+            - **Error:**
+            ```
+            ${{  steps.send-output.outputs.result }}
+            ```
+
+      ## Git operations ##
+      - name: Config user and validate changes
+        id: check-changes
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token_tf_nx.outputs.token }}
+        run: |
+          echo "Checking for changes in the repository..."
+          git config --local --add safe.directory "*"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          if git status --porcelain | grep -q .; then
+            echo "Changes detected, committing and pushing"
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No changes detected"
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push 
+        if: ${{ steps.check-changes.outputs.found == 'true' }}
+        id: commit
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token_tf_nx.outputs.token }}
+        run: |
+            echo "Committing changes..."
+            branch_name="feat/env-var/${{ needs.get-artifact.outputs.artifact }}/${{ github.run_number }}"
+            echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
+            touch git-output.txt
+
+            {
+            echo "==== git status ===="
+            git status
+            echo "==== git diff ===="
+            git diff
+            echo "==== git add  ===="
+            git add *${{ needs.get-artifact.outputs.artifact }}*
+            echo "==== git checkout -b $branch_name ===="
+            git checkout -b "$branch_name"
+            echo "==== git commit ===="
+            git commit -m "${{ env.ACTION }} environment variable ${{ env.KEY }} for ${{ needs.get-artifact.outputs.artifact }}"
+            echo "==== git push ===="
+            git push origin HEAD:"$branch_name"
+            } | tee git-output.txt
+
+
+      - name: Create Pull Request
+        id: create_pr
+        if: ${{ steps.check-changes.outputs.found == 'true'}}
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token_tf_nx.outputs.token }}
+          REPO_NAME: nx-bolt-environment-${{ env.ENVIRONMENT }}
+          BASE_BRANCH: main
+          HEAD_BRANCH: ${{ steps.commit.outputs.branch_name }}
+          PR_TITLE: "[AUTO] env-var command ${{env.ACTION}} environment variable ${{ env.KEY }} for ${{ needs.get-artifact.outputs.artifact }}"
+          PR_BODY: "This PR was created by the env-var-crud workflow to ${{ env.ACTION }} the environment variable ${{ env.KEY }} for the artifact ${{ needs.get-artifact.outputs.artifact }} in the ${{ env.ENVIRONMENT }} environment."
+        run: |
+          echo "Creating pull request..."
+          if [ -z "${{ steps.commit.outputs.branch_name }}" ]; then
+            echo "No branch name found, skipping PR creation."
+            exit 0
+          fi
+          {
+            echo "==== gh pr create ===="
+            gh pr create \
+              --repo lolosposaro/nx-bolt-environment-${{ env.ENVIRONMENT }} \
+              --base main \
+              --head ${{ steps.commit.outputs.branch_name }} \
+              --title "${{ env.PR_TITLE }}" \
+              --body "${{ env.PR_BODY }}"
+            echo "==== gh pr view ===="
+            gh pr view --json number --jq '.number'
+          } | tee -a pr-output.txt
+          echo "pr_number=$(gh pr view --json number --jq '.number')" >> $GITHUB_OUTPUT
+
+      - if: ${{ env.ENVIRONMENT == 'dev1' }}
+        name: Approve Pull Request and merge
+        run: |
+          {
+          echo "Approving and merging PR..."
+          gh pr merge ${{ steps.create_pr.outputs.pr_number }} --merge
+          echo "PR merged successfully."
+          echo "Deleting branch ${{ steps.commit.outputs.branch_name }}..."
+          git push origin --delete "${{ steps.commit.outputs.branch_name }}"
+          echo "Branch deleted."
+          } | tee -a pr-output.txt
+
+      - if: ${{ steps.check-changes.outputs.found == 'true' && env.ACTION != 'read' && env.ACTION != 'help' }} ##      
+        name: Show workflow in a comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ steps.comment-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          edit-mode: append
+          reactions: "hooray"
+          body: |
+            - **Action**: ${{ env.ACTION }}
+            - ⌛ The PR has been created. You can view the status here: [View Pull Request](${{ github.server_url }}/${{ github.repository_owner }}/nx-bolt-environment-${{ env.ENVIRONMENT }}/pull/${{ steps.create_pr.outputs.pr_number }})
+            ___
+      
+      - if: ${{ env.ENVIRONMENT == 'dev1' }}
+        name: Show it is merged
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ steps.comment-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          edit-mode: append
+          body: |
+            - **Action**: ${{ env.ACTION }}
+            - ✅ The PR has been merged automatically.
+            ___
+      
+      ## Failure Handling Git ##
+      - if: ${{ steps.commit.conclusion == 'failure' || steps.create_pr.conclusion == 'failure' }}
+        name: Capture failure context
+        id: send-output-git
+        run: |
+          echo "result<<EOF" >> $GITHUB_OUTPUT
+          cat git-output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create comment to notify no changes detected or error
+        uses: peter-evans/create-or-update-comment@v4
+        if: ${{ steps.commit.conclusion == 'failure' || steps.create_pr.conclusion == 'failure' }}
+        with:
+          token: ${{ steps.comment-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reactions: "confused"
+          edit-mode: append
+          body: |
+            **Failure detected in job:** `${{ github.job }}`
+            **Summary😵‍💫** Please check the logs details.
+            ${{ job.status == 'failure' && 'Workflow failed with error. Please check the logs above for details.' || 'No changes detected.' }}
+            `${{ steps.send-output.outputs.result }}`
