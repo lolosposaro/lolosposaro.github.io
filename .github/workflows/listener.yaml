@@ -1,15 +1,14 @@
-name: Issue Listener 
-
+name: Listener ChatOps
 on:
   issue_comment:
-    types:
-      - created
-
+    types: [created, edited]
 jobs:
-  call-dispatcher:
-    uses: ./.github/workflows/dispatcher.yaml
+  commands:
+    name: Comandera ChatOps
+    permissions:
+      actions: write
+      id-token: write
+      contents: write
+      issues: write
+    uses: lolosposaro.github.io/.github/workflows/dispatcher.yaml@feat/Snakemake-comandera
     secrets: inherit
-    with:
-      issue_comment_body: ${{ github.event.comment.body }}
-      issue_comment_author: ${{ github.event.comment.user.login }}
-      issue_comment_url: ${{ github.event.comment.html_url }}
