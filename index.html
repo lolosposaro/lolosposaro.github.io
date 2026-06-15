@@ -4,39 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Lorenzo Sposaro — Senior DevOps & Platform Engineer. AWS Solutions Architect. Kubernetes, Terraform, Backstage, ArgoCD." />
-  <title>Lorenzo Sposaro — Senior DevOps Engineer</title>
-
-  <!-- Fonts -->
+  <title>Lorenzo Sposaro — DevOps & Platform Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Devicons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
-
-  <!-- Boxicons (UI icons only) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
   <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
 
-  <!-- ===== HEADER / STATUS BAR ===== -->
   <header class="header" id="header">
     <nav class="nav container">
-      <a href="#home" class="nav__logo">
-        <span class="logo__user">lolo</span><span class="logo__at">@</span><span class="logo__host">arch</span>
-      </a>
-      <span class="nav__sep" aria-hidden="true">│</span>
+      <a href="#home" class="nav__logo">ls</a>
       <ul class="nav__list" id="nav-list">
-        <li><a href="#home"       class="nav__link active">~</a></li>
         <li><a href="#about"      class="nav__link">about</a></li>
         <li><a href="#experience" class="nav__link">experience</a></li>
         <li><a href="#skills"     class="nav__link">skills</a></li>
-        <li><a href="#catalog"    class="nav__link">catalog</a></li>
+        <li><a href="#work"       class="nav__link">work</a></li>
         <li><a href="#contact"    class="nav__link">contact</a></li>
       </ul>
-      <button class="nav__toggle" id="nav-toggle" aria-label="toggle menu">
+      <a href="assets/public/Lorenzo_Sposaro_CV.pdf" class="nav__cv" download>CV ↓</a>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu">
         <i class="bx bx-menu"></i>
       </button>
     </nav>
@@ -44,249 +33,181 @@
 
   <main>
 
-    <!-- ===== HERO (neofetch style) ===== -->
-    <section class="hero section" id="home">
+    <!-- HERO -->
+    <section class="hero" id="home">
       <div class="container">
-        <div class="nf tui-panel" data-title=" lolo@arch ">
-          <div class="nf__art-col">
-            <pre class="nf__ascii">      /\
-     /  \
-    /    \
-   /  /\  \
-  / _/  \_ \
- / /      \ \
-/__\      /__\</pre>
-            <div class="nf__palette">
-              <span class="nf__clr" style="background:#3c3836"></span>
-              <span class="nf__clr" style="background:#fb4934"></span>
-              <span class="nf__clr" style="background:#b8bb26"></span>
-              <span class="nf__clr" style="background:#fabd2f"></span>
-              <span class="nf__clr" style="background:#83a598"></span>
-              <span class="nf__clr" style="background:#d3869b"></span>
-              <span class="nf__clr" style="background:#8ec07c"></span>
-              <span class="nf__clr" style="background:#fe8019"></span>
-            </div>
-          </div>
-          <div class="nf__info">
-            <h1 class="nf__heading">
-              <span class="logo__user">lolo</span><span class="logo__at">@</span><span class="logo__host">arch</span>
-            </h1>
-            <div class="nf__sep">────────────────────────────────────</div>
-            <div class="nf__rows">
-              <div class="nf__row">
-                <span class="nf__key">os      </span>
-                <span class="nf__val">Arch Linux x86_64</span>
-              </div>
-              <div class="nf__row">
-                <span class="nf__key">role    </span>
-                <span class="nf__val"><span id="typed-text">Senior DevOps Engineer</span><span class="cursor"></span></span>
-              </div>
-              <div class="nf__row">
-                <span class="nf__key">company </span>
-                <span class="nf__val">Globant <span class="nf__arrow">→</span> British Airways</span>
-              </div>
-              <div class="nf__row">
-                <span class="nf__key">exp     </span>
-                <span class="nf__val">7+ years</span>
-              </div>
-              <div class="nf__row">
-                <span class="nf__key">cert    </span>
-                <span class="nf__val"><span class="nf__green">AWS Solutions Architect</span></span>
-              </div>
-              <div class="nf__row">
-                <span class="nf__key">location</span>
-                <span class="nf__val">Montevideo, Uruguay</span>
-              </div>
-              <div class="nf__row">
-                <span class="nf__key">shell   </span>
-                <span class="nf__val"><span class="nf__blue">fish</span> · <span class="nf__blue">tmux</span> · <span class="nf__blue">ghostty</span></span>
-              </div>
-            </div>
-            <div class="nf__sep nf__sep--gap">────────────────────────────────────</div>
-            <div class="hero__links">
-              <a href="assets/public/Lorenzo_Sposaro_CV.pdf" class="btn btn--primary" download>↓ cv</a>
-              <a href="https://github.com/lolosposaro" class="btn btn--outline" target="_blank" rel="noopener">⎇ github</a>
-              <a href="https://www.linkedin.com/in/lorenzo-sposaro-85b9b2180/" class="btn btn--outline" target="_blank" rel="noopener">in linkedin</a>
-            </div>
+        <div class="hero__content">
+          <p class="hero__eyebrow">Montevideo, Uruguay · Available for new challenges</p>
+          <h1 class="hero__name">Lorenzo<br>Sposaro</h1>
+          <p class="hero__role"><span id="typed-text">Senior DevOps Engineer</span><span class="cursor"></span></p>
+          <p class="hero__bio">Building cloud infrastructure at scale — empowering teams through GitOps, Kubernetes, and internal developer platforms.</p>
+          <div class="hero__cta">
+            <a href="assets/public/Lorenzo_Sposaro_CV.pdf" class="btn btn--primary" download>↓ Download CV</a>
+            <a href="https://github.com/lolosposaro" class="btn btn--ghost" target="_blank" rel="noopener">GitHub →</a>
+            <a href="https://www.linkedin.com/in/lorenzo-sposaro-85b9b2180/" class="btn btn--ghost" target="_blank" rel="noopener">LinkedIn →</a>
           </div>
         </div>
       </div>
-      <div class="hero__scroll-hint">
-        <span class="hero__scroll-arrow">↓</span>
-        <span class="hero__scroll-label">scroll</span>
-      </div>
+      <div class="hero__scroll" aria-hidden="true">↓</div>
     </section>
 
-    <!-- ===== ABOUT ===== -->
-    <section class="about section" id="about">
+    <!-- ABOUT -->
+    <section class="section" id="about">
       <div class="container">
-        <h2 class="section__title">about</h2>
+        <h2 class="section__tag">// about</h2>
         <div class="about__grid">
           <div class="about__text reveal">
-            <p>
-              Senior DevOps &amp; Platform Engineer with <strong>7+ years</strong> designing and
-              operating Kubernetes-based cloud infrastructure at scale. I specialize in building
-              platforms that empower developers — from GitOps pipelines to internal developer
-              portals with Backstage.
-            </p>
-            <p>
-              Currently at <strong>Globant</strong>, embedded in the British Airways platform
-              team, where I own EKS cluster lifecycle, Helm chart management for
-              <strong>240+ applications</strong>, self-service tooling, CDN infrastructure,
-              and multi-cluster service mesh architecture with Kuma.
-            </p>
-            <p>
-              I thrive at the intersection of reliability engineering and developer experience —
-              making complex infra invisible so teams can ship faster.
-            </p>
-            <div class="about__certs">
-              <span class="cert-badge"><i class="bx bxs-check-shield"></i> AWS Solutions Architect Associate</span>
-              <span class="cert-badge"><i class="bx bxs-check-shield"></i> MIT Cloud &amp; DevOps Program</span>
+            <p>Senior DevOps &amp; Platform Engineer with <strong>7+ years</strong> designing and operating Kubernetes-based cloud infrastructure at scale. I specialize in building platforms that empower developers — from GitOps pipelines to internal developer portals with Backstage.</p>
+            <p>Currently at <strong>Globant</strong>, embedded in the British Airways platform team, where I own EKS cluster lifecycle, Helm chart management for <strong>240+ applications</strong>, self-service tooling, CDN infrastructure, and multi-cluster service mesh architecture with Kuma.</p>
+            <p>I thrive at the intersection of reliability engineering and developer experience — making complex infra invisible so teams can ship faster.</p>
+            <div class="certs">
+              <span class="cert">AWS Solutions Architect Associate</span>
+              <span class="cert">MIT Cloud &amp; DevOps Program</span>
             </div>
           </div>
-          <div class="stats__grid reveal">
-            <div class="stat__card">
-              <span class="stat__number" data-count="7">0</span><span class="stat__plus">+</span>
-              <span class="stat__label">Years Experience</span>
+          <div class="stats reveal">
+            <div class="stat">
+              <span class="stat__n" data-count="7">0</span><span class="stat__p">+</span>
+              <span class="stat__l">Years Experience</span>
             </div>
-            <div class="stat__card">
-              <span class="stat__number" data-count="240">0</span><span class="stat__plus">+</span>
-              <span class="stat__label">Helm Charts Managed</span>
+            <div class="stat">
+              <span class="stat__n" data-count="240">0</span><span class="stat__p">+</span>
+              <span class="stat__l">Helm Charts</span>
             </div>
-            <div class="stat__card">
-              <span class="stat__number" data-count="3">0</span>
-              <span class="stat__label">Cloud Platforms</span>
+            <div class="stat">
+              <span class="stat__n" data-count="3">0</span>
+              <span class="stat__l">Cloud Platforms</span>
             </div>
-            <div class="stat__card">
-              <span class="stat__number" data-count="7">0</span><span class="stat__plus">+</span>
-              <span class="stat__label">Client Projects</span>
+            <div class="stat">
+              <span class="stat__n" data-count="7">0</span><span class="stat__p">+</span>
+              <span class="stat__l">Client Projects</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== EXPERIENCE ===== -->
-    <section class="experience section" id="experience">
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
       <div class="container">
-        <h2 class="section__title">experience</h2>
+        <h2 class="section__tag">// experience</h2>
         <div class="timeline">
 
           <div class="timeline__item reveal">
-            <div class="timeline__marker"></div>
-            <div class="timeline__card tui-panel" data-title=" DevOps Engineer — Platform Team ">
-              <div class="timeline__header">
-                <p class="timeline__company"><span class="grv-yellow">Globant</span> @ British Airways</p>
-                <span class="timeline__date">Oct 2023 — Present</span>
+            <div class="tl__hd">
+              <div>
+                <p class="tl__role">DevOps Engineer — Platform Team</p>
+                <p class="tl__co">Globant <span class="arrow">→</span> British Airways</p>
               </div>
-              <ul class="timeline__bullets">
-                <li>Create and maintain EKS clusters; Terraform for EKS, S3, IAM, RDS, EC2</li>
-                <li>Helm chart management for <strong>240+ applications</strong> with ALB Ingress &amp; Nginx</li>
-                <li>Built and scaled <strong>self-service CLI</strong> (Backstage-integrated) — from DevExperience team to all BA program developers, 3+ commands</li>
-                <li>Built a <strong>CDN from scratch</strong>; Smartling integration for multilingual delivery</li>
-                <li>GitHub Actions CI/CD pipelines enabling autonomous developer deployments</li>
-                <li>Multi-cluster &amp; multi-mesh migration with <strong>Kuma</strong> — planning and implementation</li>
-                <li>Datadog dashboards, log queries &amp; production troubleshooting</li>
-              </ul>
-              <div class="timeline__tags">
-                <span class="tag">AWS</span><span class="tag">EKS</span><span class="tag">Helm</span>
-                <span class="tag">Backstage</span><span class="tag">ArgoCD</span><span class="tag">Kuma</span>
-                <span class="tag">Terraform</span><span class="tag">Datadog</span><span class="tag">GH Actions</span>
-              </div>
+              <span class="tl__date">Oct 2023 — Present</span>
+            </div>
+            <ul class="tl__list">
+              <li>Create and maintain EKS clusters; Terraform for EKS, S3, IAM, RDS, EC2</li>
+              <li>Helm chart management for <strong>240+ applications</strong> with ALB Ingress &amp; Nginx</li>
+              <li>Built and scaled <strong>self-service CLI</strong> (Backstage-integrated) — from DevExperience team to all BA program developers</li>
+              <li>Built a <strong>CDN from scratch</strong>; Smartling integration for multilingual delivery</li>
+              <li>GitHub Actions CI/CD pipelines enabling autonomous developer deployments</li>
+              <li>Multi-cluster &amp; multi-mesh migration with <strong>Kuma</strong></li>
+              <li>Datadog dashboards, log queries &amp; production troubleshooting</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">AWS</span><span class="tag">EKS</span><span class="tag">Helm</span>
+              <span class="tag">Backstage</span><span class="tag">ArgoCD</span><span class="tag">Kuma</span>
+              <span class="tag">Terraform</span><span class="tag">Datadog</span>
             </div>
           </div>
 
           <div class="timeline__item reveal">
-            <div class="timeline__marker"></div>
-            <div class="timeline__card tui-panel" data-title=" DevOps Engineer — Integration Team ">
-              <div class="timeline__header">
-                <p class="timeline__company"><span class="grv-yellow">Globant</span> @ LaLiga</p>
-                <span class="timeline__date">Mar 2023 — Oct 2023</span>
+            <div class="tl__hd">
+              <div>
+                <p class="tl__role">DevOps Engineer — Integration Team</p>
+                <p class="tl__co">Globant <span class="arrow">→</span> LaLiga</p>
               </div>
-              <ul class="timeline__bullets">
-                <li>Azure AD and AD B2C configuration for identity &amp; access management</li>
-                <li>Creation and maintenance: Storage, Logic Apps, Event Hub, VMs, AKS clusters</li>
-                <li>GCP GKE cluster migration and maintenance; Terraform templates</li>
-              </ul>
-              <div class="timeline__tags">
-                <span class="tag">Azure</span><span class="tag">AKS</span><span class="tag">Azure AD B2C</span>
-                <span class="tag">GCP</span><span class="tag">GKE</span><span class="tag">Terraform</span>
-              </div>
+              <span class="tl__date">Mar 2023 — Oct 2023</span>
+            </div>
+            <ul class="tl__list">
+              <li>Azure AD and AD B2C configuration for identity &amp; access management</li>
+              <li>Creation and maintenance: Storage, Logic Apps, Event Hub, VMs, AKS clusters</li>
+              <li>GCP GKE cluster migration and maintenance; Terraform templates</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Azure</span><span class="tag">AKS</span><span class="tag">Azure AD B2C</span>
+              <span class="tag">GCP</span><span class="tag">GKE</span><span class="tag">Terraform</span>
             </div>
           </div>
 
           <div class="timeline__item reveal">
-            <div class="timeline__marker"></div>
-            <div class="timeline__card tui-panel" data-title=" DevOps Engineer — Data &amp; Tools Teams ">
-              <div class="timeline__header">
-                <p class="timeline__company"><span class="grv-yellow">Globant</span> @ Oportun</p>
-                <span class="timeline__date">Sep 2021 — Mar 2023</span>
+            <div class="tl__hd">
+              <div>
+                <p class="tl__role">DevOps Engineer — Data &amp; Tools Teams</p>
+                <p class="tl__co">Globant <span class="arrow">→</span> Oportun</p>
               </div>
-              <ul class="timeline__bullets">
-                <li>Istio service mesh from scratch; EKS app support &amp; troubleshooting</li>
-                <li>EKS cluster creation; Harness workflows for <strong>blue-green deployments</strong></li>
-                <li>Helm charts; Jenkins pipelines; Alation; Okta ASA; CloudFormation</li>
-                <li>New Relic monitoring setup and alerting</li>
-              </ul>
-              <div class="timeline__tags">
-                <span class="tag">Istio</span><span class="tag">EKS</span><span class="tag">Harness</span>
-                <span class="tag">Helm</span><span class="tag">Jenkins</span><span class="tag">New Relic</span>
-              </div>
+              <span class="tl__date">Sep 2021 — Mar 2023</span>
+            </div>
+            <ul class="tl__list">
+              <li>Istio service mesh from scratch; EKS app support &amp; troubleshooting</li>
+              <li>EKS cluster creation; Harness workflows for <strong>blue-green deployments</strong></li>
+              <li>Helm charts; Jenkins pipelines; Okta ASA; CloudFormation</li>
+              <li>New Relic monitoring setup and alerting</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Istio</span><span class="tag">EKS</span><span class="tag">Harness</span>
+              <span class="tag">Helm</span><span class="tag">Jenkins</span><span class="tag">New Relic</span>
             </div>
           </div>
 
           <div class="timeline__item reveal">
-            <div class="timeline__marker"></div>
-            <div class="timeline__card tui-panel" data-title=" DevOps Engineer ">
-              <div class="timeline__header">
-                <p class="timeline__company"><span class="grv-yellow">Globant</span> @ LeaseLock</p>
-                <span class="timeline__date">May 2021 — Sep 2021</span>
+            <div class="tl__hd">
+              <div>
+                <p class="tl__role">DevOps Engineer</p>
+                <p class="tl__co">Globant <span class="arrow">→</span> LeaseLock</p>
               </div>
-              <ul class="timeline__bullets">
-                <li>CircleCI full pipeline implementation end-to-end</li>
-                <li>Jira &amp; Jira apps: CircleCI, XRay, GitHub integrations</li>
-                <li>Salesforce deployment tooling (SFDX)</li>
-              </ul>
-              <div class="timeline__tags">
-                <span class="tag">CircleCI</span><span class="tag">Jira</span><span class="tag">Salesforce SFDX</span>
-              </div>
+              <span class="tl__date">May 2021 — Sep 2021</span>
+            </div>
+            <ul class="tl__list">
+              <li>CircleCI full pipeline implementation end-to-end</li>
+              <li>Jira integrations: CircleCI, XRay, GitHub</li>
+              <li>Salesforce deployment tooling (SFDX)</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">CircleCI</span><span class="tag">Jira</span><span class="tag">Salesforce SFDX</span>
             </div>
           </div>
 
           <div class="timeline__item reveal">
-            <div class="timeline__marker"></div>
-            <div class="timeline__card tui-panel" data-title=" DevOps &amp; Cloud Support Engineer ">
-              <div class="timeline__header">
-                <p class="timeline__company"><span class="grv-yellow">Globant</span> @ Millicom</p>
-                <span class="timeline__date">Dec 2019 — May 2021</span>
+            <div class="tl__hd">
+              <div>
+                <p class="tl__role">DevOps &amp; Cloud Support Engineer</p>
+                <p class="tl__co">Globant <span class="arrow">→</span> Millicom</p>
               </div>
-              <ul class="timeline__bullets">
-                <li>Led migration of production systems to Kubernetes (eksctl)</li>
-                <li>Full K8s workflow with Prometheus, Grafana, Linkerd &amp; Kubecost</li>
-                <li>AWS administration: EC2, RDS, S3, IAM, SSO, CloudWatch, ELB</li>
-                <li>Nginx / PHP / Drupal debugging; MySQL RDS; CloudFront, EFS, Memcached</li>
-              </ul>
-              <div class="timeline__tags">
-                <span class="tag">K8s</span><span class="tag">AWS</span><span class="tag">Prometheus</span>
-                <span class="tag">Grafana</span><span class="tag">Nginx</span><span class="tag">Linkerd</span>
-              </div>
+              <span class="tl__date">Dec 2019 — May 2021</span>
+            </div>
+            <ul class="tl__list">
+              <li>Led migration of production systems to Kubernetes (eksctl)</li>
+              <li>Full K8s workflow with Prometheus, Grafana, Linkerd &amp; Kubecost</li>
+              <li>AWS administration: EC2, RDS, S3, IAM, SSO, CloudWatch, ELB</li>
+              <li>Nginx / PHP / Drupal debugging; MySQL RDS; CloudFront, EFS</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">K8s</span><span class="tag">AWS</span><span class="tag">Prometheus</span>
+              <span class="tag">Grafana</span><span class="tag">Nginx</span><span class="tag">Linkerd</span>
             </div>
           </div>
 
           <div class="timeline__item reveal">
-            <div class="timeline__marker"></div>
-            <div class="timeline__card tui-panel" data-title=" DevOps Engineer ">
-              <div class="timeline__header">
-                <p class="timeline__company"><span class="grv-yellow">Globant</span> @ Rockwell Automation</p>
-                <span class="timeline__date">Jul 2019 — Nov 2019</span>
+            <div class="tl__hd">
+              <div>
+                <p class="tl__role">DevOps Engineer</p>
+                <p class="tl__co">Globant <span class="arrow">→</span> Rockwell Automation</p>
               </div>
-              <ul class="timeline__bullets">
-                <li>Jenkins CI jobs serving <strong>400+ developers</strong></li>
-                <li>Bash scripts for infrastructure metrics; DevOps tooling in TypeScript</li>
-              </ul>
-              <div class="timeline__tags">
-                <span class="tag">Jenkins</span><span class="tag">Bash</span><span class="tag">TypeScript</span>
-              </div>
+              <span class="tl__date">Jul 2019 — Nov 2019</span>
+            </div>
+            <ul class="tl__list">
+              <li>Jenkins CI jobs serving <strong>400+ developers</strong></li>
+              <li>Bash scripts for infrastructure metrics; DevOps tooling in TypeScript</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Jenkins</span><span class="tag">Bash</span><span class="tag">TypeScript</span>
             </div>
           </div>
 
@@ -294,325 +215,249 @@
       </div>
     </section>
 
-    <!-- ===== SKILLS ===== -->
-    <section class="skills section" id="skills">
+    <!-- SKILLS -->
+    <section class="section" id="skills">
       <div class="container">
-        <h2 class="section__title">skills</h2>
-        <div class="skills__grid">
+        <h2 class="section__tag">// skills</h2>
+        <div class="skills">
 
-          <div class="skill__category reveal tui-panel" data-title=" cloud platforms ">
-            <div class="skill__list">
+          <div class="skill__cat reveal">
+            <h3 class="skill__cat-title">Cloud Platforms</h3>
+            <div class="skill__items">
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-amazonwebservices-plain-wordmark colored skill__devicon"></i>
-                  <span>AWS</span>
-                  <span class="skill__badge skill__badge--cert">Solutions Architect</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="90"></div></div>
+                <i class="devicon-amazonwebservices-plain-wordmark colored"></i>
+                <span>AWS</span>
+                <span class="sbadge sbadge--cert">Certified</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-azure-plain colored skill__devicon"></i>
-                  <span>Azure</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="75"></div></div>
+                <i class="devicon-azure-plain colored"></i>
+                <span>Azure</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-googlecloud-plain colored skill__devicon"></i>
-                  <span>GCP</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="65"></div></div>
+                <i class="devicon-googlecloud-plain colored"></i>
+                <span>GCP</span>
               </div>
             </div>
           </div>
 
-          <div class="skill__category reveal tui-panel" data-title=" container orchestration ">
-            <div class="skill__list">
+          <div class="skill__cat reveal">
+            <h3 class="skill__cat-title">Containers &amp; Orchestration</h3>
+            <div class="skill__items">
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-kubernetes-plain colored skill__devicon"></i>
-                  <span>Kubernetes</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="95"></div></div>
+                <i class="devicon-kubernetes-plain colored"></i>
+                <span>Kubernetes</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/icons/helm/helm-original.svg" class="skill__devicon-img" alt="Helm">
-                  <span>Helm</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="90"></div></div>
+                <i class="devicon-helm-original colored"></i>
+                <span>Helm</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-docker-plain colored skill__devicon"></i>
-                  <span>Docker</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="85"></div></div>
+                <i class="devicon-docker-plain colored"></i>
+                <span>Docker</span>
               </div>
             </div>
           </div>
 
-          <div class="skill__category reveal tui-panel" data-title=" infrastructure as code ">
-            <div class="skill__list">
+          <div class="skill__cat reveal">
+            <h3 class="skill__cat-title">Infrastructure as Code</h3>
+            <div class="skill__items">
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-terraform-plain colored skill__devicon"></i>
-                  <span>Terraform</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="88"></div></div>
+                <i class="devicon-terraform-plain colored"></i>
+                <span>Terraform</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <span class="skill__text-icon">CF</span>
-                  <span>CloudFormation</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="70"></div></div>
+                <span class="sico">CF</span>
+                <span>CloudFormation</span>
               </div>
             </div>
           </div>
 
-          <div class="skill__category reveal tui-panel" data-title=" ci/cd &amp; gitops ">
-            <div class="skill__list">
+          <div class="skill__cat reveal">
+            <h3 class="skill__cat-title">CI/CD &amp; GitOps</h3>
+            <div class="skill__items">
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-github-original skill__devicon"></i>
-                  <span>GitHub Actions</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="88"></div></div>
+                <i class="devicon-github-original"></i>
+                <span>GitHub Actions</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <span class="skill__text-icon skill__text-icon--argo">▶</span>
-                  <span>ArgoCD</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="85"></div></div>
+                <span class="sico sico--argo">▶</span>
+                <span>ArgoCD</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/icons/jenkins/jenkins-original.svg" class="skill__devicon-img" alt="Jenkins">
-                  <span>Jenkins</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="80"></div></div>
+                <i class="devicon-jenkins-original colored"></i>
+                <span>Jenkins</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-circleci-plain colored skill__devicon"></i>
-                  <span>CircleCI</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="75"></div></div>
+                <i class="devicon-circleci-plain colored"></i>
+                <span>CircleCI</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <span class="skill__text-icon skill__text-icon--harness">H</span>
-                  <span>Harness</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="70"></div></div>
+                <span class="sico sico--harness">H</span>
+                <span>Harness</span>
               </div>
             </div>
           </div>
 
-          <div class="skill__category reveal tui-panel" data-title=" service mesh ">
-            <div class="skill__list">
+          <div class="skill__cat reveal">
+            <h3 class="skill__cat-title">Service Mesh</h3>
+            <div class="skill__items">
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-istio-plain colored skill__devicon"></i>
-                  <span>Istio</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="80"></div></div>
+                <i class="devicon-istio-plain colored"></i>
+                <span>Istio</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <span class="skill__text-icon skill__text-icon--kuma">K</span>
-                  <span>Kuma</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="72"></div></div>
+                <span class="sico sico--kuma">K</span>
+                <span>Kuma</span>
               </div>
             </div>
           </div>
 
-          <div class="skill__category reveal tui-panel" data-title=" monitoring &amp; observability ">
-            <div class="skill__list">
+          <div class="skill__cat reveal">
+            <h3 class="skill__cat-title">Observability</h3>
+            <div class="skill__items">
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <span class="skill__text-icon skill__text-icon--dd">D</span>
-                  <span>Datadog</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="82"></div></div>
+                <span class="sico sico--dd">D</span>
+                <span>Datadog</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-prometheus-original colored skill__devicon"></i>
-                  <span>Prometheus</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="75"></div></div>
+                <i class="devicon-prometheus-original colored"></i>
+                <span>Prometheus</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-grafana-plain colored skill__devicon"></i>
-                  <span>Grafana</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="75"></div></div>
+                <i class="devicon-grafana-plain colored"></i>
+                <span>Grafana</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <span class="skill__text-icon skill__text-icon--nr">NR</span>
-                  <span>New Relic</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="68"></div></div>
+                <span class="sico sico--nr">NR</span>
+                <span>New Relic</span>
               </div>
             </div>
           </div>
 
-          <div class="skill__category reveal tui-panel" data-title=" scripting ">
-            <div class="skill__list">
+          <div class="skill__cat reveal">
+            <h3 class="skill__cat-title">Scripting</h3>
+            <div class="skill__items">
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-bash-plain colored skill__devicon"></i>
-                  <span>Bash</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="85"></div></div>
+                <i class="devicon-bash-plain"></i>
+                <span>Bash</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-python-plain colored skill__devicon"></i>
-                  <span>Python</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="75"></div></div>
+                <i class="devicon-python-plain colored"></i>
+                <span>Python</span>
               </div>
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <i class="devicon-typescript-plain colored skill__devicon"></i>
-                  <span>TypeScript</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="60"></div></div>
+                <i class="devicon-typescript-plain colored"></i>
+                <span>TypeScript</span>
               </div>
             </div>
           </div>
 
-          <div class="skill__category reveal tui-panel" data-title=" developer portals ">
-            <div class="skill__list">
+          <div class="skill__cat reveal">
+            <h3 class="skill__cat-title">Developer Portals</h3>
+            <div class="skill__items">
               <div class="skill__item">
-                <div class="skill__item-header">
-                  <span class="skill__text-icon skill__text-icon--bs">BS</span>
-                  <span>Backstage</span>
-                  <span class="skill__badge skill__badge--active">active</span>
-                </div>
-                <div class="skill__bar-track"><div class="skill__bar-fill" data-width="80"></div></div>
+                <span class="sico sico--bs">BS</span>
+                <span>Backstage</span>
+                <span class="sbadge sbadge--active">active</span>
               </div>
             </div>
-            <p class="skill__detail">custom CLI plugins · self-service scaffolding · catalog integration · cross-team adoption</p>
+            <p class="skill__note">custom CLI plugins · self-service scaffolding · catalog integration</p>
           </div>
 
         </div>
       </div>
     </section>
 
-    <!-- ===== CATALOG (Backstage-inspired) ===== -->
-    <section class="catalog section" id="catalog">
+    <!-- WORK -->
+    <section class="section" id="work">
       <div class="container">
-        <h2 class="section__title">service catalog</h2>
-        <p class="catalog__subtitle"># key initiatives — modeled as backstage catalog entities</p>
-        <div class="catalog__chrome tui-panel" data-title=" Catalog ">
-          <div class="catalog__header-bar">
-            <div class="catalog__nav-tabs">
-              <span class="catalog__nav-tab catalog__nav-tab--active">catalog</span>
-            </div>
-            <div class="catalog__filters">
-              <span class="catalog__filter">kind: all</span>
-              <span class="catalog__filter">owner: lolo</span>
-              <span class="catalog__filter">lifecycle: production</span>
-            </div>
-          </div>
-          <div class="catalog__grid">
+        <h2 class="section__tag">// work</h2>
+        <div class="work">
 
-            <div class="catalog__card reveal" data-kind="component">
-              <div class="catalog__card-header">
-                <span class="catalog__status catalog__status--ok">● production</span>
+          <div class="work__card reveal">
+            <div class="work__vis work__vis--cli"></div>
+            <div class="work__body">
+              <div class="work__meta">
+                <span class="wstatus wstatus--live">● production</span>
+                <span class="wkind">component</span>
               </div>
-              <h3 class="catalog__card-title">self-service-cli</h3>
-              <p class="catalog__card-system">system: devex-platform</p>
-              <p class="catalog__card-desc">Internal developer portal CLI integrated with Backstage. Scaled from DevExperience team to all British Airways program developers. Supports 3+ autonomous deployment and environment management workflows.</p>
-              <div class="catalog__card-tags">
+              <h3 class="work__title">self-service-cli</h3>
+              <p class="work__desc">Internal developer portal CLI integrated with Backstage. Scaled from DevExperience team to all British Airways program developers. Supports 3+ autonomous deployment and environment management workflows.</p>
+              <div class="tags">
                 <span class="tag">Backstage</span><span class="tag">TypeScript</span>
                 <span class="tag">EKS</span><span class="tag">ArgoCD</span>
               </div>
-              <div class="catalog__card-footer">
-                <span class="catalog__owner">● owner: @lolo</span>
-              </div>
             </div>
+          </div>
 
-            <div class="catalog__card reveal" data-kind="system">
-              <div class="catalog__card-header">
-                <span class="catalog__status catalog__status--wip">● in-progress</span>
+          <div class="work__card reveal">
+            <div class="work__vis work__vis--mesh"></div>
+            <div class="work__body">
+              <div class="work__meta">
+                <span class="wstatus wstatus--wip">● in progress</span>
+                <span class="wkind">system</span>
               </div>
-              <h3 class="catalog__card-title">multicluster-mesh</h3>
-              <p class="catalog__card-system">system: ba-platform</p>
-              <p class="catalog__card-desc">Multi-cluster and multi-mesh architecture migration using Kuma (Envoy-based). Led cross-team strategic planning and full implementation ownership for British Airways platform resilience.</p>
-              <div class="catalog__card-tags">
+              <h3 class="work__title">multicluster-mesh</h3>
+              <p class="work__desc">Multi-cluster and multi-mesh architecture migration using Kuma (Envoy-based). Led cross-team strategic planning and full implementation ownership for British Airways platform resilience.</p>
+              <div class="tags">
                 <span class="tag">Kuma</span><span class="tag">Kubernetes</span>
-                <span class="tag">Istio</span><span class="tag">AWS EKS</span>
-              </div>
-              <div class="catalog__card-footer">
-                <span class="catalog__owner">● owner: @lolo</span>
+                <span class="tag">Istio</span><span class="tag">EKS</span>
               </div>
             </div>
+          </div>
 
-            <div class="catalog__card reveal" data-kind="component">
-              <div class="catalog__card-header">
-                <span class="catalog__status catalog__status--ok">● production</span>
+          <div class="work__card reveal">
+            <div class="work__vis work__vis--cdn"></div>
+            <div class="work__body">
+              <div class="work__meta">
+                <span class="wstatus wstatus--live">● production</span>
+                <span class="wkind">component</span>
               </div>
-              <h3 class="catalog__card-title">cdn-platform</h3>
-              <p class="catalog__card-system">system: ba-platform</p>
-              <p class="catalog__card-desc">CDN built from scratch with Smartling integration for multilingual content delivery. Rule management, optimization pipelines and 24/7 on-call incident response for British Airways digital properties.</p>
-              <div class="catalog__card-tags">
+              <h3 class="work__title">cdn-platform</h3>
+              <p class="work__desc">CDN built from scratch with Smartling integration for multilingual content delivery. Rule management, optimization pipelines and 24/7 on-call incident response for British Airways digital properties.</p>
+              <div class="tags">
                 <span class="tag">Nginx</span><span class="tag">CloudFront</span>
                 <span class="tag">Smartling</span><span class="tag">CDN</span>
               </div>
-              <div class="catalog__card-footer">
-                <span class="catalog__owner">● owner: @lolo</span>
-              </div>
             </div>
+          </div>
 
-            <div class="catalog__card reveal" data-kind="resource">
-              <div class="catalog__card-header">
-                <span class="catalog__status catalog__status--ok">● production</span>
+          <div class="work__card reveal">
+            <div class="work__vis work__vis--helm"></div>
+            <div class="work__body">
+              <div class="work__meta">
+                <span class="wstatus wstatus--live">● production</span>
+                <span class="wkind">resource</span>
               </div>
-              <h3 class="catalog__card-title">helm-platform</h3>
-              <p class="catalog__card-system">system: ba-platform</p>
-              <p class="catalog__card-desc">Helm chart ecosystem managing <strong>240+ application deployments</strong> with EKS, ALB Ingress and Nginx. Full lifecycle: templating standards, upgrade automation and developer self-service hooks.</p>
-              <div class="catalog__card-tags">
+              <h3 class="work__title">helm-platform</h3>
+              <p class="work__desc">Helm chart ecosystem managing 240+ application deployments with EKS, ALB Ingress and Nginx. Full lifecycle: templating standards, upgrade automation and developer self-service hooks.</p>
+              <div class="tags">
                 <span class="tag">Helm</span><span class="tag">EKS</span>
                 <span class="tag">ALB</span><span class="tag">Nginx</span>
               </div>
-              <div class="catalog__card-footer">
-                <span class="catalog__owner">● owner: @lolo</span>
-              </div>
             </div>
-
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- ===== CONTACT ===== -->
-    <section class="contact section" id="contact">
+    <!-- CONTACT -->
+    <section class="section" id="contact">
       <div class="container">
-        <h2 class="section__title">contact</h2>
-        <div class="contact__panel tui-panel reveal" data-title=" ping lolo ">
-          <p class="contact__text">Open to interesting platform engineering challenges, DevOps consulting, and connecting with the community.</p>
+        <div class="contact reveal">
+          <span class="section__tag">// contact</span>
+          <h2 class="contact__title">Let's work together</h2>
+          <p class="contact__sub">Open to platform engineering challenges, DevOps consulting, and connecting with the community.</p>
           <div class="contact__links">
-            <a href="mailto:sposarolorenzo@gmail.com" class="contact__link">
-              <i class="bx bx-envelope"></i>
-              <span>sposarolorenzo@gmail.com</span>
+            <a href="mailto:sposarolorenzo@gmail.com" class="clink">
+              <i class="bx bx-envelope"></i>sposarolorenzo@gmail.com
             </a>
-            <a href="https://www.linkedin.com/in/lorenzo-sposaro-85b9b2180/" class="contact__link" target="_blank" rel="noopener">
-              <i class="bx bxl-linkedin"></i>
-              <span>linkedin.com/in/lorenzo-sposaro</span>
+            <a href="https://www.linkedin.com/in/lorenzo-sposaro-85b9b2180/" class="clink" target="_blank" rel="noopener">
+              <i class="bx bxl-linkedin"></i>linkedin.com/in/lorenzo-sposaro
             </a>
-            <a href="https://github.com/lolosposaro" class="contact__link" target="_blank" rel="noopener">
-              <i class="bx bxl-github"></i>
-              <span>github.com/lolosposaro</span>
+            <a href="https://github.com/lolosposaro" class="clink" target="_blank" rel="noopener">
+              <i class="bx bxl-github"></i>github.com/lolosposaro
             </a>
           </div>
         </div>
@@ -621,19 +466,10 @@
 
   </main>
 
-  <!-- ===== FOOTER / STATUS BAR ===== -->
   <footer class="footer">
     <div class="container footer__inner">
-      <span class="footer__left">
-        <span class="grv-yellow">lolo</span><span class="grv-orange">@</span><span class="grv-green">arch</span>
-        <span class="footer__sep">│</span>
-        <span class="footer__role">Senior DevOps Engineer</span>
-      </span>
-      <span class="footer__right">
-        <a href="https://github.com/lolosposaro" class="footer__icon" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
-        <a href="https://www.linkedin.com/in/lorenzo-sposaro-85b9b2180/" class="footer__icon" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
-        <span class="footer__year">2026</span>
-      </span>
+      <span>Lorenzo Sposaro</span>
+      <span>2026</span>
     </div>
   </footer>
 
