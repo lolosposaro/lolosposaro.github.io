@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Moto Clima — Asesor de vestimenta para salir en moto según el clima actual." />
+  <title>Moto Clima — lolo@arch</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Boxicons (UI icons only) -->
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER / STATUS BAR ===== -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="/" class="nav__logo">
+        <span class="logo__user">lolo</span><span class="logo__at">@</span><span class="logo__host">arch</span>
+      </a>
+      <span class="nav__sep" aria-hidden="true">│</span>
+      <ul class="nav__list" id="nav-list">
+        <li><a href="/"            class="nav__link">~</a></li>
+        <li><a href="/#about"      class="nav__link">about</a></li>
+        <li><a href="/#experience" class="nav__link">experience</a></li>
+        <li><a href="/#skills"     class="nav__link">skills</a></li>
+        <li><a href="/#catalog"    class="nav__link">catalog</a></li>
+        <li><a href="/moto"        class="nav__link active">moto</a></li>
+        <li><a href="/#contact"    class="nav__link">contact</a></li>
+      </ul>
+      <button class="nav__toggle" id="nav-toggle" aria-label="toggle menu">
+        <i class="bx bx-menu"></i>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===== MOTO CLIMA ===== -->
+    <section class="moto section" id="moto" style="padding-top: calc(var(--header-h, 60px) + 2rem);">
+      <div class="container">
+        <h2 class="section__title">moto clima</h2>
+        <div class="tui-panel" data-title=" moto-weather-advisor ">
+          <form class="moto__form" id="moto-form">
+            <span class="moto__prompt">$</span>
+            <input class="moto__input" type="text" id="moto-city" value="Montevideo" placeholder="ciudad" autocomplete="off" />
+            <label class="moto__label" for="moto-speed">vel:</label>
+            <input class="moto__speed" type="number" id="moto-speed" value="80" min="20" max="200" />
+            <span class="moto__unit">km/h</span>
+            <button class="moto__btn" type="submit">consultar</button>
+          </form>
+          <pre class="moto__output" id="moto-output"></pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER / STATUS BAR ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="footer__left">
+        <span class="grv-yellow">lolo</span><span class="grv-orange">@</span><span class="grv-green">arch</span>
+        <span class="footer__sep">│</span>
+        <span class="footer__role">Senior DevOps Engineer</span>
+      </span>
+      <span class="footer__right">
+        <a href="https://github.com/lolosposaro" class="footer__icon" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+        <a href="https://www.linkedin.com/in/lorenzo-sposaro-85b9b2180/" class="footer__icon" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+        <span class="footer__year">2026</span>
+      </span>
+    </div>
+  </footer>
+
+  <script src="../assets/js/moto.js"></script>
+</body>
+</html>
